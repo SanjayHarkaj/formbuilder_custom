@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+  <title>Form Builder</title>
+  <meta name="description" content="">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="dist/formbuilder.css" />
+  <style>
+  @font-face {
+    font-family: 'fontello';
+    src: url('vendor/fonts/fontello.eot');
+    src: url('vendor/fonts/fontello.eot') format('embedded-opentype'),
+         url('vendor/fonts/fontello.woff') format('woff'),
+         url('vendor/fonts/fontello.ttf') format('truetype'),
+         url('vendor/fonts/fontello.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  </style>
+  <script src="vendor/js/gremlins.js"></script>
+
+</head>
+<body>
+
+  <div class='fb-main'></div>
+  <script src="vendor/js/vendor.js"></script>
+  <script src="bower_components/summernote/dist/summernote.js"></script>
+  <script src="dist/formbuilder.js"></script>
+
+  <script>
+    $(function() {
+      Formbuilder.attr('sources', {
+        Person: {
+          title:'Employee',
+          properties: {'id': 'ID', 'payroll_number': 'Payroll Number'}
+        },
+        Contractor: {
+          title:'Contractor',
+          properties: {'id': 'ID', 'name': 'Name'},
+          filters: {
+            status : {
+              name: 'Status',
+              values: {
+               '1': 'Draft',
+               '2': 'In Progress',
+               '3': 'Current',
+               '4': 'Blocked'
+              }
+            }
+
+          }
+        }
+      });
+     /* var jsonData = [
+        {
+          "label": "Hours worked",
+          "type": "number",
+          "required": true,
+          "options": {},
+          "parent_uuid": "909cbdba-4431-4ed8-ab28-96006d356ad7",
+          "uuid": "76b257ed-16fa-422d-a732-da6c6170c807"
+        }
+      ];*/
+     var jsonData = [];
+      window.fb = new Formbuilder({
+        selector: '.fb-main',
+        bootstrapData: jsonData
+      });
+
+        fb.on('save', function(payload){
+            console.log(payload);
+        });
+
+
+
+      $("#default_date").inputmask("aa-9999");  //static mask
+
+    });
+
+  </script>
+<!--  <script>
+
+
+
+    var horde = gremlins.createHorde();
+    var hordeButton = document.createElement("button");
+    hordeButton.className = 'btn btn-danger';
+    hordeButton.innerHTML = 'Unleash the Gremlins';
+    document.body.appendChild(hordeButton);
+    hordeButton.addEventListener('click', function() {
+      horde.unleash({ nb: 500 });
+      this.style.display = 'none';
+    });
+  </script>-->
+</body>
+</html>
